@@ -11,7 +11,7 @@ fullscreen = 0
 android.archs = arm64-v8a, armeabi-v7a
 android.allow_backup = True
 
-# --- CONFIGURATION SDK/NDK VALIDÉE ---
+# --- CONFIGURATION ANDROID ---
 android.api = 31
 android.minapi = 21
 android.sdk = 31
