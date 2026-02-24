@@ -18,11 +18,13 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y build-essential git python3-dev ffmpeg libsdl2-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev libsqlite3-dev sqlite3 bzip2 libbz2-dev libssl-dev openssl libgdbm-dev libgdbm-compat-dev liblzma-dev libreadline-dev libncursesw5-dev libffi-dev uuid-dev tar
+          pip install --upgrade pip
           pip install Cython==0.29.33 buildozer
 
       - name: Build with Buildozer
-        # On utilise uniquement la commande simple ici
-        run: buildozer android debug
+        # On force l'acceptation des licences et on lance le build
+        run: |
+          yes | buildozer android debug
         env:
           BUILDOZER_ACCEPT_ANDROID_SDK_LICENSE: 1
 
