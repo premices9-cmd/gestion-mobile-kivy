@@ -9,7 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Cette étape sauvegarde le travail de Buildozer entre chaque essai
       - name: Cache Buildozer
         uses: actions/cache@v4
         with:
@@ -29,6 +28,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y build-essential git python3-dev ffmpeg libsdl2-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev libsqlite3-dev sqlite3 bzip2 libbz2-dev libssl-dev openssl libgdbm-dev libgdbm-compat-dev liblzma-dev libreadline-dev libncursesw5-dev libffi-dev uuid-dev tar
+          pip install --upgrade pip
           pip install Cython==0.29.33 buildozer
 
       - name: Build with Buildozer
