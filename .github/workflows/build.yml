@@ -27,7 +27,8 @@ jobs:
           pip install buildozer
 
       - name: Build APK
-        run: buildozer android debug
+        # Le "yes |" répond automatiquement "oui" aux licences Android
+        run: yes | buildozer android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
