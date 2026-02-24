@@ -9,12 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cache Buildozer
-        uses: actions/cache@v4
-        with:
-          path: .buildozer
-          key: ${{ runner.os }}-buildozer-${{ hashFiles('buildozer.spec') }}
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -27,6 +21,7 @@ jobs:
           pip install Cython==0.29.33 buildozer
 
       - name: Build with Buildozer
+        # Utilisation de la commande simple sans "yes |"
         run: buildozer android debug
         env:
           BUILDOZER_ACCEPT_ANDROID_SDK_LICENSE: 1
