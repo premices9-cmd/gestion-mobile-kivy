@@ -2,15 +2,14 @@ name: Build APK
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -18,22 +17,21 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install dependencies
+      - name: Install System Dependencies
         run: |
           sudo apt update
-          sudo apt install -y build-essential git python3-dev ffmpeg libsdl2-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev
+          sudo apt install -y build-essential git python3-dev ffmpeg libsdl2-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev libsqlite3-dev sqlite3 bzip2 libbz2-dev libssl-dev openssl libgdbm-dev libgdbm-compat-dev liblzma-dev libreadline-dev libncursesw5-dev libffi-dev uuid-dev tar
           pip install --upgrade pip
-          pip install Cython==0.29.33
-          pip install buildozer
+          pip install Cython==0.29.33 buildozer
 
-      - name: Build APK
-        # Cette variable remplace le "yes |" et accepte proprement les licences
-        run: buildozer android debug
-        env:
-          BUILDOZER_ACCEPT_ANDROID_SDK_LICENSE: 1
+      - name: Build with Buildozer
+        # Cette commande accepte les licences ET lance le build
+        run: |
+          export BUILDOZER_ACCEPT_ANDROID_SDK_LICENSE=1
+          buildozer android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: mon-application-apk
+          name: mon-application
           path: bin/*.apk
