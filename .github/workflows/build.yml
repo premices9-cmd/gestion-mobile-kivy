@@ -21,8 +21,10 @@ jobs:
           pip install Cython==0.29.33 buildozer
 
       - name: Build with Buildozer
-        # Utilisation de la commande simple sans "yes |"
-        run: buildozer android debug
+        # Le secret est ici : on ajoute la commande pour accepter les licences
+        # et on limite la puissance pour éviter le plantage serveur
+        run: |
+          yes | buildozer android debug
         env:
           BUILDOZER_ACCEPT_ANDROID_SDK_LICENSE: 1
 
