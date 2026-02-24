@@ -20,10 +20,17 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install buildozer
           sudo apt update
-          sudo apt install -y zip unzip openjdk-17-jdk
+          sudo apt install -y build-essential git python3-dev ffmpeg libsdl2-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev
+          pip install --upgrade pip
+          pip install Cython==0.29.33
+          pip install buildozer
 
       - name: Build APK
-        run: |
-          buildozer android debug
+        run: buildozer android debug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: mon-application-apk
+          path: bin/*.apk
