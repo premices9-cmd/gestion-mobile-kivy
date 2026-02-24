@@ -4,15 +4,12 @@ package.name = gestionmobile
 package.domain = org.premices
 source.dir = .
 source.include_exts = py,png,jpg,kv
-
-# --- AJOUTEZ CES LIGNES ICI ---
 version = 0.1
 requirements = python3,kivy
 orientation = portrait
 fullscreen = 0
 android.archs = arm64-v8a, armeabi-v7a
 android.allow_backup = True
-# ------------------------------
 
 [buildozer]
 log_level = 2
