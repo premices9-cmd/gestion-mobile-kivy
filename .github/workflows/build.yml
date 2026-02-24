@@ -32,6 +32,7 @@ jobs:
           pip install Cython==0.29.33 buildozer
 
       - name: Build with Buildozer
+        # On utilise une commande simple pour éviter la saturation du log
         run: buildozer android debug
         env:
           BUILDOZER_ACCEPT_ANDROID_SDK_LICENSE: 1
