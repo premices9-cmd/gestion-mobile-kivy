@@ -20,7 +20,8 @@ jobs:
           pip install Cython==0.29.33 buildozer
 
       - name: Build with Buildozer
-        run: yes | buildozer android debug
+        # ON ENLÈVE LE "YES |" ICI
+        run: buildozer android debug
         env:
           BUILDOZER_ACCEPT_ANDROID_SDK_LICENSE: 1
 
