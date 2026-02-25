@@ -1,44 +1,24 @@
-name: Build APK
-on:
-  push:
-    branches: [ main ]
+[app]
+title = GestionMobile
+package.name = gestionmobile
+package.domain = org.premices
+source.dir = .
+source.include_exts = py,png,jpg,kv
+version = 0.1
+requirements = python3,kivy
+orientation = portrait
+fullscreen = 0
+android.archs = arm64-v8a, armeabi-v7a
+android.allow_backup = True
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+# --- CONFIGURATION SDK/NDK ---
+android.api = 31
+android.minapi = 21
+android.sdk = 31
+android.ndk = 25b
+android.accept_sdk_license = True
+p4a.branch = master
 
-      - name: Cache Buildozer
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.buildozer
-            .buildozer
-          key: ${{ runner.os }}-buildozer-${{ hashFiles('buildozer.spec') }}
-          restore-keys: |
-            ${{ runner.os }}-buildozer-
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Install Dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y build-essential git python3-dev ffmpeg libsdl2-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev libsqlite3-dev sqlite3 bzip2 libbz2-dev libssl-dev openssl libgdbm-dev libgdbm-compat-dev liblzma-dev libreadline-dev libncursesw5-dev libffi-dev uuid-dev tar
-          pip install --upgrade pip
-          pip install Cython==0.29.33 buildozer
-
-      - name: Build with Buildozer
-        # On utilise une commande simple pour éviter la saturation du log
-        run: buildozer android debug
-        env:
-          BUILDOZER_ACCEPT_ANDROID_SDK_LICENSE: 1
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: MonApp-Debug
-          path: bin/*.apk
+[buildozer]
+log_level = 2
+warn_on_root = 1
